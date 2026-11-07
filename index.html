@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sara Alaoui Sossi – Cyberdefense</title>
+<meta name="description" content="Sara Alaoui Sossi, cyberdefense engineering student at ENSA Marrakech. Detection engineering, malware analysis, incident response and secure CI/CD.">
+<meta name="theme-color" content="#141C19">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23141C19'/%3E%3Crect x='5' y='9' width='22' height='5' fill='%23E6E2D3'/%3E%3Crect x='5' y='18' width='14' height='5' fill='%23F0B13C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,500;62..125,600;62..125,800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141C19;
+  --panel:#1B2622;
+  --text:#E6E2D3;
+  --muted:#93A198;
+  --rule:#2F3F39;
+  --amber:#F0B13C;
+  --red:#E3654D;
+  --sage:#8FBF9F;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Archivo",system-ui,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--amber);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+::selection{background:var(--amber);color:var(--bg)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono);font-size:13px}
+
+/* top strip */
+.marking{border-bottom:1px solid var(--rule)}
+.marking .wrap{display:flex;justify-content:space-between;gap:16px;padding-top:11px;padding-bottom:11px;color:var(--muted)}
+.marking .live{display:inline-flex;align-items:center;gap:9px}
+.marking .live i{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 3px rgba(143,191,159,.18)}
+.marking nav{display:flex;gap:20px}
+.marking nav a{color:var(--muted);text-decoration:none}
+.marking nav a:hover{color:var(--text)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;padding:72px 0 88px;align-items:center}
+.field{color:var(--muted);margin:0 0 18px}
+.hero h1{font-stretch:125%;font-weight:800;font-size:clamp(2.6rem,6.2vw,5.3rem);line-height:.95;letter-spacing:-.035em;margin:0 0 34px}
+.claim{font-size:clamp(1.25rem,2.2vw,1.65rem);line-height:1.42;max-width:34ch;margin:0 0 24px;font-weight:500}
+.r{position:relative}
+.r::after{content:"";position:absolute;left:-3px;right:-3px;top:.14em;bottom:.04em;background:var(--text);transform-origin:right center;animation:lift .55s cubic-bezier(.7,0,.2,1) forwards;animation-delay:var(--d,0s)}
+.r.a{color:var(--amber)}
+.r.a::after{background:var(--amber)}
+@keyframes lift{to{transform:scaleX(0)}}
+.status{color:var(--muted);max-width:48ch;margin:0 0 30px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:11px 18px;font-size:15px;font-weight:500;text-decoration:none;border:1.5px solid var(--text);color:var(--text)}
+.btn:hover{background:var(--text);color:var(--bg)}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#1A1405}
+.btn.primary:hover{background:var(--text);border-color:var(--text)}
+
+/* rule file */
+.rule-file{background:var(--panel);border:1px solid var(--rule);font-family:var(--mono);font-size:13.5px;line-height:1.75;min-width:0}
+.rule-file .bar{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--rule);color:var(--muted);font-size:12.5px}
+.rule-file .bar b{font-weight:500;color:var(--sage)}
+.rule-file pre{margin:0;padding:14px 16px 16px 0;overflow-x:auto;counter-reset:ln}
+.rule-file code{display:block;font-family:inherit}
+.rule-file .l{display:block;padding-left:3.2em;position:relative;white-space:pre}
+.rule-file .l::before{counter-increment:ln;content:counter(ln);position:absolute;left:0;width:2.2em;text-align:right;color:#4E625A}
+.rule-file .hl{background:rgba(240,177,60,.08);box-shadow:inset 2px 0 0 var(--amber)}
+.key{color:#9FB2A6}.str{color:var(--text)}.val{color:var(--amber)}.cm{color:#6D8178}.hi{color:var(--red)}
+
+/* sections */
+section.block{padding:84px 0;border-top:1px solid var(--rule)}
+.head{display:grid;grid-template-columns:240px 1fr;gap:40px;margin-bottom:40px;align-items:baseline}
+.head .mono{color:var(--muted)}
+.head .mono span{color:var(--amber)}
+h2{font-stretch:112%;font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.03em;line-height:1.05;margin:0;font-weight:800}
+.head p{margin:12px 0 0;color:var(--muted);max-width:58ch}
+
+/* investigation trace */
+.org{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin:0 0 30px}
+.org strong{font-size:1.2rem;font-weight:600}
+.trace{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--muted)}
+.trace li{padding:20px 20px 4px 0;position:relative}
+.trace li::before{content:"";position:absolute;top:-6px;left:0;width:11px;height:11px;background:var(--bg);border:1.5px solid var(--muted);transform:rotate(45deg)}
+.trace li.hit::before{background:var(--red);border-color:var(--red)}
+.trace li.ok::before{background:var(--sage);border-color:var(--sage)}
+.trace .step{color:var(--muted);display:block;margin-bottom:8px}
+.trace .sev{display:inline-block;margin-left:6px;padding:0 6px;border:1px solid currentColor;font-size:11px;line-height:1.6}
+.trace li.hit .sev{color:var(--red)}
+.trace li.ok .sev{color:var(--sage)}
+.trace h3{font-size:1.05rem;margin:0 0 6px;font-weight:600;line-height:1.3}
+.trace p{margin:0;color:var(--muted);font-size:15px;line-height:1.5}
+.trace .big{display:block;font-stretch:125%;font-weight:800;font-size:2.7rem;line-height:1;margin:6px 0;letter-spacing:-.03em}
+.trace li.hit .big{color:var(--red)}
+.trace li.ok .big{color:var(--sage)}
+.second{margin-top:64px;display:grid;grid-template-columns:240px 1fr;gap:40px}
+.second h3{margin:0;font-size:1.2rem;font-weight:600}
+.second ul{margin:8px 0 0;padding-left:1.1em;max-width:66ch}
+.second li::marker{color:var(--amber)}
+
+/* case files */
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:46px 28px}
+.case{position:relative;background:var(--panel);border:1px solid var(--rule);padding:26px 26px 22px;margin-top:24px}
+.case .tab{position:absolute;top:-25px;left:-1px;background:var(--panel);border:1px solid var(--rule);border-bottom:0;padding:3px 12px;color:var(--amber)}
+.case .id{position:absolute;top:-22px;right:0;color:#5E7168}
+.case.wide{grid-column:1/-1}
+.case h3{font-stretch:105%;font-size:1.3rem;letter-spacing:-.015em;margin:0 0 4px;line-height:1.25;font-weight:600}
+.case .meta{color:var(--muted);margin:0 0 16px}
+.case ul{margin:0;padding-left:1.1em}
+.case li{margin:0 0 7px}
+.case li::marker{color:var(--amber)}
+.case .tools{margin:16px 0 0;padding-top:12px;border-top:1px dashed var(--rule);color:var(--muted)}
+.figure{font-weight:600;color:var(--amber)}
+.case.wide .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+
+/* toolkit */
+.kit{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--muted)}
+.kit div{padding:20px 20px 22px 0;border-bottom:1px solid var(--rule)}
+.kit div:nth-child(n+5){border-bottom:0}
+.kit h3{font-size:1rem;margin:0 0 8px;font-weight:600}
+.kit p{margin:0;color:var(--muted);font-size:15px;line-height:1.6}
+
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.facts h3{margin:0 0 10px;color:var(--muted);font-weight:400}
+.facts p{margin:0 0 6px}
+
+/* contact */
+.contact{background:var(--amber);color:#1A1405;padding:84px 0 36px}
+.contact h2{font-stretch:125%;font-size:clamp(2.1rem,5.4vw,4.2rem);max-width:16ch;letter-spacing:-.04em}
+.contact p{max-width:52ch;margin:18px 0 30px;color:#3D3012}
+.contact .btn{border-color:#1A1405;color:#1A1405}
+.contact .btn:hover{background:#1A1405;color:var(--amber)}
+.contact .btn.primary{background:#1A1405;color:var(--amber);border-color:#1A1405}
+.contact .btn.primary:hover{background:transparent;color:#1A1405}
+.contact :focus-visible{outline-color:#1A1405}
+.contact footer{margin-top:76px;padding-top:16px;border-top:1px solid rgba(26,20,5,.3);color:#4A3B17;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+#hash{word-break:break-all}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;gap:44px}
+  .trace{grid-template-columns:1fr;border-top:0;border-left:1px solid var(--muted)}
+  .trace li{padding:0 0 28px 26px}
+  .trace li::before{top:4px;left:-6px}
+  .cases,.case.wide .cols{grid-template-columns:1fr}
+  .case.wide .cols{gap:0}
+  .kit{grid-template-columns:1fr 1fr}
+  .kit div:nth-child(n+5){border-bottom:1px solid var(--rule)}
+  .head,.second{grid-template-columns:1fr;gap:10px}
+  .facts{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .marking nav{display:none}
+  .hero{padding:40px 0 60px}
+  .kit{grid-template-columns:1fr}
+  section.block{padding:56px 0}
+  .case{padding:22px 18px 18px}
+  .case .id{display:none}
+  .rule-file{font-size:12.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .r::after{animation:none;transform:scaleX(0)}
+}
+</style>
+</head>
+<body>
+<div class="marking">
+  <div class="wrap mono">
+    <span class="live"><i></i>Open to PFE internships, February 2027</span>
+    <nav aria-label="Sections">
+      <a href="#investigation">Investigation</a>
+      <a href="#cases">Case files</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <p class="field mono">Cyberdefense engineering student, ENSA Marrakech</p>
+      <h1>Sara Alaoui Sossi</h1>
+      <p class="claim">I <span class="r" style="--d:.35s">write detections</span>, <span class="r" style="--d:.75s">take malware apart</span> and check <span class="r a" style="--d:1.15s">what security tools actually see</span>.</p>
+      <p class="status">Final-year student looking for an end-of-studies internship (PFE) in a SOC or Blue Team, from February 2027.</p>
+      <div class="actions">
+        <a class="btn primary" href="Sara_Alaoui_Sossi_CV.pdf" download>Download CV</a>
+        <a class="btn" href="mailto:saraalaouisossi1@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/sara-alaoui-sossi-906146294/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="rule-file" role="img" aria-label="My profile written as a Sigma detection rule: available from February 2027, ENSA Marrakech, focus on SOC, detection engineering, incident response and DevSecOps.">
+      <div class="bar"><span>rules/analyst_profile.yml</span><b>valid</b></div>
+<pre><code><span class="l"><span class="key">title:</span> <span class="str">Blue Team analyst profile</span></span><span class="l"><span class="key">status:</span> <span class="val">available</span>  <span class="cm"># from 2027-02</span></span><span class="l"><span class="key">author:</span> <span class="str">Sara Alaoui Sossi</span></span><span class="l"><span class="key">logsource:</span></span><span class="l">  <span class="key">school:</span> <span class="str">ENSA Marrakech</span></span><span class="l">  <span class="key">track:</span> <span class="str">cyberdefense</span></span><span class="l"><span class="key">detection:</span></span><span class="l">  <span class="key">selection:</span></span><span class="l hl">    <span class="key">focus|contains:</span></span><span class="l hl">      - <span class="str">soc</span></span><span class="l hl">      - <span class="str">detection engineering</span></span><span class="l hl">      - <span class="str">incident response</span></span><span class="l hl">      - <span class="str">devsecops</span></span><span class="l">  <span class="key">condition:</span> <span class="str">selection</span></span><span class="l"><span class="key">falsepositives:</span></span><span class="l">  - <span class="str">none known</span></span><span class="l"><span class="key">level:</span> <span class="hi">high</span></span></code></pre>
+    </div>
+  </section>
+</div>
+
+<section class="block" id="investigation">
+  <div class="wrap">
+    <div class="head">
+      <span class="mono">event.category: <span>experience</span></span>
+      <div>
+        <h2>One sample, followed to the end</h2>
+        <p>My SOC internship at Orange Cyberdefense, step by step: from a malicious Word file to a review of what the EDR missed.</p>
+      </div>
+    </div>
+    <div class="org"><strong>SOC intern, Orange Cyberdefense</strong><span class="mono" style="color:var(--muted)">Casablanca, July – August 2026</span></div>
+    <ol class="trace">
+      <li><span class="step mono">Step 1</span><h3>Sample</h3><p>A Word document carrying a macro dropper.</p></li>
+      <li><span class="step mono">Step 2</span><h3>Analysis</h3><p>Static and dynamic analysis, payload decoded, IOCs extracted and turned into YARA rules.</p></li>
+      <li class="hit"><span class="step mono">Step 3 <span class="sev">alert</span></span><h3>Detonation</h3><span class="big">9</span><p>alerts raised by SentinelOne in under 2 minutes, then triaged.</p></li>
+      <li><span class="step mono">Step 4</span><h3>Reconstruction</h3><p>Attack chain rebuilt in Storyline despite the parent process being spoofed through WMI.</p></li>
+      <li class="ok"><span class="step mono">Step 5 <span class="sev">closed</span></span><h3>Coverage review</h3><span class="big">17</span><p>ATT&amp;CK techniques checked against the EDR, blind spots documented, 4 response measures proposed.</p></li>
+    </ol>
+
+    <div class="second">
+      <span class="mono" style="color:var(--muted)">July 2025</span>
+      <div>
+        <h3>Cybersecurity intern, 21Knowledge, Marrakech</h3>
+        <ul>
+          <li>Automated IOC enrichment (URLs, IPs, files, emails) with n8n workflows calling VirusTotal, AbuseIPDB and Firecrawl.</li>
+          <li>Designed Securoxy, a platform that shows enrichment results, and deployed it on Vercel.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="cases">
+  <div class="wrap">
+    <div class="head">
+      <span class="mono">event.category: <span>projects</span></span>
+      <div>
+        <h2>Case files</h2>
+        <p>Labs and team projects, each filed under the part of defense it deals with.</p>
+      </div>
+    </div>
+    <div class="cases">
+      <article class="case wide">
+        <span class="tab mono">Detection and response</span><span class="id mono">CASE-01</span>
+        <h3>SOC lab: detection, purple team and incident response</h3>
+        <p class="meta mono">Personal lab on VMware</p>
+        <div class="cols">
+          <ul>
+            <li>Active Directory, pfSense, Elastic Security and the Elastic Defend EDR through Fleet, with Windows telemetry validated before writing any rule.</li>
+            <li><span class="figure">15 detection rules</span> written as code (Sigma, KQL/EQL), documented and checked by GitHub Actions.</li>
+          </ul>
+          <ul>
+            <li>A 5-step Active Directory attack plus Atomic Red Team tests: <span class="figure">20 ATT&amp;CK techniques detected</span> and mapped in Navigator.</li>
+            <li>Incident response: host isolation, forensics with Velociraptor, alert enrichment with n8n.</li>
+          </ul>
+        </div>
+        <p class="tools mono">Elastic Security, Sigma, KQL/EQL, Atomic Red Team, Velociraptor, pfSense, n8n</p>
+      </article>
+
+      <article class="case wide">
+        <span class="tab mono">Software supply chain</span><span class="id mono">CASE-02</span>
+        <h3>TeamSlot: booking platform for local football pitches</h3>
+        <p class="meta mono">Team of 4, Scrum, Sept – Nov 2026. My role: CI/CD and security lead</p>
+        <div class="cols">
+          <ul>
+            <li>Secure CI for <span class="figure">6 microservices</span> and the front end: SonarCloud quality gate, Gitleaks, Trivy on code and images from the pull request.</li>
+            <li>Keyless cosign signatures checked before every deployment, images deployed by digest, a CycloneDX SBOM attested for each image.</li>
+          </ul>
+          <ul>
+            <li>GitOps with Argo CD and Kustomize, with a smoke test after each sync that checks protected routes reject calls without a token.</li>
+            <li>STRIDE threat model, security criteria in user stories, OWASP ZAP scan of staging.</li>
+          </ul>
+        </div>
+        <p class="tools mono">Spring Boot, Kafka, React, Kubernetes, Argo CD, GitHub Actions, SonarCloud, Trivy, cosign, OWASP ZAP</p>
+      </article>
+
+      <article class="case">
+        <span class="tab mono">Pipeline monitoring</span><span class="id mono">CASE-03</span>
+        <h3>SOC-oriented DevSecOps</h3>
+        <p class="meta mono">Team project</p>
+        <ul>
+          <li>Zeek with 10 behavioural scripts (brute force, DNS tunnelling, exfiltration, suspicious TLS) and automatic UFW blocking.</li>
+          <li>Splunk collecting logs from a secured Jenkins and GitLab pipeline.</li>
+          <li>3 attack scenarios detected with a <span class="figure">mean time to detect under 2 minutes</span>.</li>
+        </ul>
+        <p class="tools mono">Zeek, Splunk, Jenkins, GitLab, Docker, Gitleaks</p>
+      </article>
+
+      <article class="case">
+        <span class="tab mono">Governance</span><span class="id mono">CASE-04</span>
+        <h3>IT hygiene audit against the ANSSI guide</h3>
+        <p class="meta mono">Audit project</p>
+        <ul>
+          <li>The 42 ANSSI hygiene measures rebuilt into a scoring grid from 0 to 4.</li>
+          <li>Document review: <span class="figure">55% of measures covered</span>, gaps listed.</li>
+          <li>Questionnaire: 74% declared maturity, 5 inconsistent answers, so a cautious 60 to 74% was reported.</li>
+        </ul>
+        <p class="tools mono">ANSSI guide, Excel, Google Apps Script</p>
+      </article>
+
+      <article class="case">
+        <span class="tab mono">Network detection</span><span class="id mono">CASE-05</span>
+        <h3>IDS and intrusion response</h3>
+        <p class="meta mono">Honeypot project</p>
+        <ul>
+          <li>Suricata and the ELK Stack on a honeypot to detect intrusions and find the most common attack techniques.</li>
+          <li>Detected intrusions blocked with iptables rules.</li>
+        </ul>
+        <p class="tools mono">Suricata, ELK Stack, iptables, Linux</p>
+      </article>
+
+      <article class="case">
+        <span class="tab mono">Access control</span><span class="id mono">CASE-06</span>
+        <h3>AAA and virtualisation infrastructure</h3>
+        <p class="meta mono">Two infrastructure projects</p>
+        <ul>
+          <li>Cisco, FortiGate and Active Directory integrated into centralised AAA over RADIUS, with per-user access policies.</li>
+          <li>vCenter and ESXi with vMotion, DRS and HA, plus DNS and DHCP on Ubuntu Server.</li>
+        </ul>
+        <p class="tools mono">Cisco, FortiGate, RADIUS, Active Directory, vCenter, ESXi</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="toolkit">
+  <div class="wrap">
+    <div class="head">
+      <span class="mono">event.category: <span>skills</span></span>
+      <div><h2>Toolkit</h2></div>
+    </div>
+    <div class="kit">
+      <div><h3>SIEM, EDR and logs</h3><p>Elastic Security, Splunk, ELK Stack, Zeek, Suricata, SentinelOne, Sysmon</p></div>
+      <div><h3>Detection engineering</h3><p>Sigma, KQL/EQL, YARA, MITRE ATT&amp;CK, ATT&amp;CK Navigator, Atomic Red Team</p></div>
+      <div><h3>Malware and forensics</h3><p>oletools, CyberChef, Procmon, FakeNet-NG, Ghidra, x64dbg, Volatility, Autopsy</p></div>
+      <div><h3>Threat intel and response</h3><p>Velociraptor, DFIR-IRIS, MISP, OpenCTI, VirusTotal, urlscan.io, n8n</p></div>
+      <div><h3>Network and systems</h3><p>FortiGate, Cisco, pfSense, RADIUS, iptables, Wireshark, Active Directory, Linux, VMware</p></div>
+      <div><h3>DevSecOps</h3><p>GitHub Actions, Jenkins, GitLab, Docker, Kubernetes, Argo CD, SonarCloud, Trivy, cosign</p></div>
+      <div><h3>Languages</h3><p>Python, PowerShell, Java, SQL</p></div>
+      <div><h3>Ways of working</h3><p>Scrum, Jira, audit reports and written analyses</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap facts">
+    <div>
+      <h3 class="mono">Education</h3>
+      <p>Engineering degree in cyberdefense and embedded telecommunication systems</p>
+      <p style="color:var(--muted)">ENSA Marrakech, 2022 – 2027</p>
+    </div>
+    <div>
+      <h3 class="mono">Certifications</h3>
+      <p>Jr Penetration Tester, TryHackMe</p>
+      <p>Web Fundamentals, TryHackMe</p>
+      <p>Pre Security, TryHackMe</p>
+    </div>
+    <div>
+      <h3 class="mono">Languages</h3>
+      <p>Arabic, native</p>
+      <p>French, fluent</p>
+      <p>English, B2 (Cambridge)</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Looking for a Blue Team intern in 2027?</h2>
+    <p>I'm available from February 2027 for an end-of-studies internship, and happy to walk you through any of this work.</p>
+    <div class="actions">
+      <a class="btn primary" href="mailto:saraalaouisossi1@gmail.com">saraalaouisossi1@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/sara-alaoui-sossi-906146294/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="Sara_Alaoui_Sossi_CV.pdf" download>Download CV</a>
+    </div>
+    <footer class="mono"><span>© 2026 Sara Alaoui Sossi, Marrakech</span><span id="hash" hidden></span></footer>
+  </div>
+</section>
+
+<script>
+/* The footer shows the real SHA-256 of this page, computed in the visitor's browser. */
+(function(){
+  if(!(window.crypto&&crypto.subtle&&window.fetch)) return;
+  fetch(location.href,{cache:"no-store"}).then(function(r){return r.arrayBuffer()})
+  .then(function(buf){return crypto.subtle.digest("SHA-256",buf)})
+  .then(function(d){
+    var hex=Array.prototype.map.call(new Uint8Array(d),function(b){return b.toString(16).padStart(2,"0")}).join("");
+    var el=document.getElementById("hash"); el.textContent="sha256 of this page: "+hex.slice(0,16)+"…"; el.title=hex; el.hidden=false;
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>
